@@ -280,3 +280,17 @@ with millions of rows it started to break down. This motivated me to
 write *py-mysql2pgsql* which uses a server side cursor, so there is no "paging"
 which means there is no slow down while working it's way through a
 large dataset.
+
+New Feature: Convert from MySQL Dump File
+========================================
+
+You can now convert a MySQL SQL backup file directly to a PostgreSQL-compatible SQL file, without needing access to a live MySQL database.
+
+To use this feature, add the following to your config under the 'mysql' section:
+
+.. code-block:: yaml
+
+    mysql:
+      dump_file: /path/to/your/mysql_dump.sql
+
+If 'dump_file' is specified, the tool will parse the dump file and convert its schema and data to PostgreSQL format. All other options under 'mysql' are ignored in this mode.

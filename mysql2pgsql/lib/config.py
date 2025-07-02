@@ -49,6 +49,8 @@ mysql:
  password: 
  database: mysql2psql_test
  compress: false
+ # If you want to use a MySQL dump file instead of a live database, specify the path here:
+ # dump_file: /path/to/your/mysql_dump.sql
 destination:
  # if file is given, output goes to file, else postgres
  file: 

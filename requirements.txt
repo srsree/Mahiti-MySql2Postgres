@@ -1,0 +1,5 @@
+mysqlclient
+psycopg2
+pyyaml
+termcolor
+pytz

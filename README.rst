@@ -1,10 +1,8 @@
 ========================================================================================
-py-mysql2pgsql - A tool for migrating/converting/exporting data from MySQL to PostgreSQL
+mysql2postgres - A tool for migrating/converting/exporting data from MySQL to PostgreSQL
 ========================================================================================
 
-This tool allows you to take data from an MySQL server (only tested on
-5.x) and write a PostgresSQL compatible (8.2 or higher) dump file or pipe it directly
-into your running PostgreSQL server (8.2 or higher).
+This tool allows you to take data from a MySQL server (tested on 5.x and later) and write a PostgreSQL-compatible (8.2 or higher) dump file, or pipe it directly into your running PostgreSQL server (8.2 or higher).
 
 .. attention::
    Currently there is no support for importing `spatial data from MySQL
@@ -14,47 +12,40 @@ into your running PostgreSQL server (8.2 or higher).
 Installation:
 =============
 
-If you're like me you don't like random stuff polluting your python
-install. Might I suggest installing this in an virtualenv?
+It is recommended to use a virtual environment for installation.
 
 ::
 
-    > virtualenv --no-site-packages ~/envs/py-mysql2pgsql
-    > source ~/envs/py-mysql2pgsql/bin/activate
+    python3 -m venv ~/envs/mysql2postgres
+    source ~/envs/mysql2postgres/bin/activate
+    pip install -r requirements.txt
+
+Or install directly from PyPI:
+
+::
+
+    pip install mysql2postgres
 
 
 Requirements:
 -------------
 
-* `Python 2.7 <http://www.python.org/getit/>`_
-* `MySQL-python <http://pypi.python.org/pypi/MySQL-python>`_
-* `psycopg2 <http://pypi.python.org/pypi/psycopg2>`_
-* `PyYAML <http://pypi.python.org/pypi/PyYAML>`_
-* `termcolor <http://pypi.python.org/pypi/termcolor>`_ (unless you're installing on windows)
-* `pytz <http://pypi.python.org/pypi/pytz>`_
+* Python 3.6+
+* `mysqlclient <https://pypi.org/project/mysqlclient/>`_ (Python 3 fork of MySQLdb)
+* `psycopg2 <https://pypi.org/project/psycopg2/>`_
+* `PyYAML <https://pypi.org/project/PyYAML/>`_
+* `termcolor <https://pypi.org/project/termcolor/>`_ (unless you're installing on Windows)
+* `pytz <https://pypi.org/project/pytz/>`_
 
 
 On Windows
 ----------
 
-I have only done limited testing on this platform using Python
-2.7. Here are the driver dependencies for windows, install these
-before attempting to install py-mysql2pgsql or it will fail.
-
-* `psycopg2 for Windows <http://www.stickpeople.com/projects/python/win-psycopg/>`_
-* `MySQL-python for Windows <http://www.codegood.com/archives/129>`_
-
-
-
-From PyPI:
-----------
-
-All dependencies **should** be automatically installed when installing
-the app the following ways
+You can install `mysqlclient` and `psycopg2` using pre-built wheels from PyPI. Make sure you have the appropriate build tools or use wheels for your Python version.
 
 ::
 
-    > pip install py-mysql2pgsql
+    pip install mysqlclient psycopg2
 
 
 From source:
@@ -62,9 +53,9 @@ From source:
 
 ::
 
-    > git clone git://github.com/philipsoutham/py-mysql2pgsql.git
-    > cd py-mysql2pgsql
-    > python setup.py install
+    git clone https://github.com/philipsoutham/py-mysql2pgsql.git
+    cd py-mysql2pgsql
+    pip install .
 
 
 Usage:
@@ -74,8 +65,8 @@ Looking for help?
 
 ::
 
-    > py-mysql2pgsql -h
-    usage: py-mysql2pgsql [-h] [-v] [-f FILE]
+    mysql2postgres -h
+    usage: mysql2postgres [-h] [-v] [-f FILE]
 
     Tool for migrating/converting data from mysql to postgresql.
 
@@ -83,7 +74,7 @@ Looking for help?
       -h, --help            show this help message and exit
       -v, --verbose         Show progress of data migration.
       -f FILE, --file FILE  Location of configuration file (default:
-                            mysql2pgsql.yml). If none exists at that path,
+                            mysql2postgres.yml). If none exists at that path,
                             one will be created for you.
 
 
@@ -91,12 +82,12 @@ Don't worry if this is your first time, it'll be gentle.
 
 ::
 
-    > py-mysql2pgsql
+    mysql2postgres
     No configuration file found.
-    A new file has been initialized at: mysql2pgsql.yml
+    A new file has been initialized at: mysql2postgres.yml
     Please review the configuration and retry...
 
-As the output suggests, a file was created at mysql2pgsql.yml for you
+As the output suggests, a file was created at mysql2postgres.yml for you
 to edit. For the impatient, here is what the file contains.
 
 ::
@@ -183,7 +174,7 @@ on. Here's an example.
 
 ::
 
-    > py-mysql2pgsql -v -f mysql2pgsql.yml
+    mysql2postgres -v -f mysql2postgres.yml
     START PROCESSING table_one
       START  - CREATING TABLE table_one
       FINISH - CREATING TABLE table_one
@@ -277,7 +268,7 @@ I ported much of this from an existing project written in Ruby by Max
 Lapshin over at `<https://github.com/maxlapshin/mysql2postgres>`_. I
 found that it worked fine for most things, but for migrating large tables
 with millions of rows it started to break down. This motivated me to
-write *py-mysql2pgsql* which uses a server side cursor, so there is no "paging"
+write *mysql2postgres* which uses a server side cursor, so there is no "paging"
 which means there is no slow down while working it's way through a
 large dataset.
 

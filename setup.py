@@ -18,17 +18,17 @@ if version < (2,7) or (3,0) <= version <= (3,1):
     install_requires += ['argparse']
 
 setup(
-    name='py-mysql2pgsql',
+    name='mysql2postgres',
     version='0.1.6',
     description='Tool for migrating/converting from mysql to postgresql.',
     long_description=open('README.rst').read(),
     license='MIT License',
     author='Philip Southam',
     author_email='philipsoutham@gmail.com',
-    url='https://github.com/philipsoutham/py-mysql2pgsql',
+    url='https://github.com/philipsoutham/mysql2postgres',
     zip_safe=False,
     packages=['mysql2pgsql', 'mysql2pgsql.lib'],
-    scripts=['bin/py-mysql2pgsql'],
+    scripts=['bin/mysql2postgres'],
     platforms='any',
     install_requires=install_requires,
     classifiers=[
@@ -39,7 +39,7 @@ setup(
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
         'Topic :: Database',
         'Topic :: Utilities'
         ],

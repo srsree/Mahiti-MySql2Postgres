@@ -31,8 +31,8 @@ Requirements:
 -------------
 
 * Python 3.6+
-* `mysqlclient <https://pypi.org/project/mysqlclient/>`_ (Python 3 fork of MySQLdb)
-* `psycopg2 <https://pypi.org/project/psycopg2/>`_
+* `mysqlclient <https://pypi.org/project/mysqlclient/>`_ (Python 3 fork of MySQLdb) (optional, required for direct MySQL connection)
+* `psycopg2 <https://pypi.org/project/psycopg2/>`_ (optional, required for direct PostgreSQL connection)
 * `PyYAML <https://pypi.org/project/PyYAML/>`_
 * `termcolor <https://pypi.org/project/termcolor/>`_ (unless you're installing on Windows)
 * `pytz <https://pypi.org/project/pytz/>`_
@@ -285,3 +285,14 @@ To use this feature, add the following to your config under the 'mysql' section:
       dump_file: /path/to/your/mysql_dump.sql
 
 If 'dump_file' is specified, the tool will parse the dump file and convert its schema and data to PostgreSQL format. All other options under 'mysql' are ignored in this mode.
+
+Optional Dependencies and Modes
+------------------------------
+
+- If `mysqlclient` (MySQLdb) is **not installed**, you can only use a MySQL dump file as input (see the `dump_file` option in the config). Direct connection to a MySQL server will not be available.
+- If `psycopg2` is **not installed**, you can only output to a PostgreSQL-compatible SQL file. Direct connection to a PostgreSQL server will not be available.
+- If you attempt to use a database source or destination without the required library, the tool will print a clear error and exit.
+
+Typical error messages:
+- "MySQLdb (mysqlclient) is not installed. Only dump_file input is supported."
+- "psycopg2 is not installed. Only file output is supported."
